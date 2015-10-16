@@ -41,8 +41,6 @@ function onLocationSuccess(position) {
 
 function onLocationError(error) {
     manualZip.style.display = 'block';
-    alert("We couldn't retrieve your location");
-    orderingFlowParagraph.className += orderingFlowParagraph.className == "has-error" ? "" : "has-error" ;
 
     switch(error.code) {
         case error.PERMISSION_DENIED:
