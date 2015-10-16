@@ -9,10 +9,11 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/default.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
+<div class="container" id="container">
 
     <div class="header clearfix">
         <nav>
@@ -24,7 +25,7 @@
         <h3 class="text-muted">Car Ordering</h3>
     </div>
 
-    <div class="jumbotron">
+    <div class="jumbotron" id="jumbotron">
         <h1>Welcome to Car Ordering</h1>
 
         <p class="lead">The simplest way to order food from your favorite restaurant from the comfort of your car</p>
@@ -34,12 +35,14 @@
 
     <dialog id="successDialogWindow">
         <h3>Your location was found!</h3>
+
         <p id="successDialogContent"></p>
         <button class="btn btn-primary" type="button" onclick="dismissSuccessDialog()">Confirm</button>
     </dialog>
 
     <dialog id="errorDialogWindow">
         <h3 id="errorDialogContent">Your location could not be retrieved</h3>
+
         <p class="lead">Please enter it manually</p>
         <input placeholder="Zip Code" id="errorDialogZipCode">
         <button class="btn btn-primary" type="button" onclick="dismissErrorDialog()">Submit</button>
@@ -53,13 +56,19 @@
         </div>
     </div>
 
-    <footer class="panel-footer">
+    <div id="listViewContainer">
+        <ul class="list-group">
+            <li class="list-group-item"><span class="badge">0.2mi</span> Chipotle</li>
+            <li class="list-group-item"><span class="badge">0.5mi</span> Wendys</li>
+            <li class="list-group-item"><span class="badge">1.3mi</span> Buffalo Wild Wings</li>
+        </ul>
+    </div>
+
+    <footer class="panel-footer navbar-fixed-bottom">
         <p>© Aloha Online Ordering 2015</p>
     </footer>
 
 </div>
-
-
 <!-- Scripts -->
 <script src="js/default.js"></script>
 

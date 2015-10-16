@@ -1,12 +1,15 @@
 /**
  * Created by Fabrice on 10/16/15.
  */
-var locationSuccessDialog = document.getElementById("successDialogWindow")
-var locationErrorDialog = document.getElementById("errorDialogWindow")
-var locationErrorDialogContent = document.getElementById("errorDialogContent")
-var zipCodeTextBox = document.getElementById("errorDialogZipCode")
-var manualZip = document.getElementById("manualZipContainer")
-var manualZipInput = document.getElementById("manualZipInput")
+var locationSuccessDialog = document.getElementById("successDialogWindow");
+var locationErrorDialog = document.getElementById("errorDialogWindow");
+var locationErrorDialogContent = document.getElementById("errorDialogContent");
+var zipCodeTextBox = document.getElementById("errorDialogZipCode");
+var manualZip = document.getElementById("manualZipContainer");
+var container = document.getElementById("container");
+var jumbotron = document.getElementById("jumbotron");
+var listView = document.getElementById("listViewContainer");
+var manualZipInput = document.getElementById("manualZipInput");
 
 var latitude;
 var longitude;
@@ -14,6 +17,7 @@ var zipCode;
 
 function init() {
     manualZip.style.display = 'none';
+    listView.style.display = 'none';
 }
 
 function getLocation() {
@@ -32,9 +36,13 @@ function onLocationSuccess(position) {
     longitude = position.coords.longitude;
 
     locationSuccessDialog.show();
+
 }
 
 function onLocationError(error) {
+    manualZip.style.display = 'block';
+    alert("We couldn't retrieve your location");
+    orderingFlowParagraph.className += orderingFlowParagraph.className == "has-error" ? "" : "has-error" ;
 
     switch(error.code) {
         case error.PERMISSION_DENIED:
@@ -59,6 +67,8 @@ function onLocationError(error) {
 
 function dismissSuccessDialog() {
     locationSuccessDialog.close();
+    jumbotron.style.display = 'none';
+    listView.style.display = 'initial';
 }
 
 function dismissErrorDialog() {
