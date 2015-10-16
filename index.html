@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Car Ordering</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">About</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Car Ordering</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Welcome to Car Ordering</h1>
+
+        <p class="lead">The simplest way to order food from your favorite restaurant from the comfort of your car</p>
+
+        <p><a class="btn btn-lg btn-success" href="#" role="button" onclick="getLocation()">Order now!</a></p>
+    </div>
+
+
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Extras</h4>
+
+            <p id="orderingFlow"></p>
+        </div>
+    </div>
+
+    <div class="row marketing" id="manualZipContainer">
+        <div class="col-lg-6">
+            <h4>Manual Zip</h4>
+
+            <p id="manualZipInput"></p>
+        </div>
+    </div>
+
+    <footer class="panel-footer">
+        <p>© Aloha Online Ordering 2015</p>
+    </footer>
+
+</div>
+
+
+<!-- Scripts -->
+<script src="js/default.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
