@@ -33,6 +33,7 @@ var opts = {
     , hwaccel: false // Whether to use hardware acceleration
     , position: 'absolute' // Element positioning
 };
+var mapCanvas = document.getElementById('map');
 
 var SEARCH_RANGE = 10;
 
@@ -40,12 +41,25 @@ var latitude;
 var longitude;
 var zipCode;
 
+var map;
+var geoCoder;
+
 function init() {
     manualZip.style.display = 'none';
     listView.style.display = 'none';
+    mapCanvas.style.display = 'none';
 }
 
-init();
+function initializeMap() {
+    geoCoder = new google.maps.Geocoder();
+
+    var mapOptions = {
+        center: {lat: 33.7550, lng: -84.39},
+        zoom: 13,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(mapCanvas, mapOptions);
+}
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -114,6 +128,11 @@ function dismissSuccessDialog() {
     jumbotron.style.display = 'none';
     spinner = new Spinner(opts).spin(container);
     listView.style.display = 'initial';
+    mapCanvas.style.display = 'block';
+
+    google.maps.event.addDomListener(window, 'load', initializeMap());
+
+    map.setCenter(new google.maps.LatLng(latitude, longitude))
     $.getJSON("js/sites.json", function(json) {
         var unsortedSitesList = [];
         var sheet1 = json["Sheet1"]
@@ -140,6 +159,11 @@ function dismissSuccessDialog() {
             $("#listViewContainer ul").append("<li class=\"list-group-item\"><span class=\"badge\">" +
                 distance + "mi</span>" + sortedSitesList[i].name + "</li>");
 
+            var marker = new google.maps.Marker({
+                position: {lat: Number(sortedSitesList[i].lat), lng: Number(sortedSitesList[i].long)},
+                map: map,
+                title: sortedSitesList[i].name
+            });
         }
         spinner.stop()
     });
@@ -151,10 +175,41 @@ function dismissErrorDialog() {
     locationErrorDialog.close();
     manualZip.style.display = 'block';
     manualZipInput.innerHTML = zipCode;
+
+    this.setTimeout(new function() {
+        jumbotron.style.display = 'none';
+        listView.style.display = 'initial';
+    }, 5000);
 }
 
 function addManualLocationInput() {
-    zipCode = zipCodeTextBox.value
+    zipCode = zipCodeTextBox.value;
+
+    mapCanvas.style.display = 'block';
+    google.maps.event.addDomListener(window, 'load', initializeMap());
+    convertZipToLatLon();
+}
+
+function convertZipToLatLon() {
+    geoCoder.geocode( {'address' : zipCode}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            latitude = results[0].geometry.location.lat();
+            longitude = results[0].geometry.location.lng();
+
+            var marker = new google.maps.Marker({
+                position: {lat: latitude, lng: longitude},
+                map: map,
+                title: 'My position'
+            });
+            map.setCenter(new google.maps.LatLng(latitude, longitude))
+        } else {
+            alert("Something went wrong: " + status)
+        }
+    });
+}
+
+function addMapPins(results) {
+    //map.data.addGeoJson(results);
 }
 
 function Site() {
@@ -233,3 +288,5 @@ function mergeSort(items){
 
     return merge(mergeSort(left), mergeSort(right));
 }
+
+init();
