@@ -154,10 +154,12 @@ function dismissSuccessDialog() {
         }
         var sortedSitesList = mergeSort(unsortedSitesList);
         for(var i = 0; i < sortedSitesList.length && sortedSitesList[i].distanceFromCurrentLocation <= SEARCH_RANGE; i++) {
-            var distance = sortedSitesList[i].distanceFromCurrentLocation + "";
+            var currentSite = sortedSitesList[i];
+            var distance = currentSite.distanceFromCurrentLocation + "";
             distance = distance.substring(0, distance.indexOf(".") + 2);
-            $("#listViewContainer ul").append("<li class=\"list-group-item\"><span class=\"badge\">" +
-                distance + "mi</span>" + sortedSitesList[i].name + "</li>");
+            $("#listViewContainer ul").append("<a href=\"https://www.google.com/maps/preview/?q="
+                + currentSite.lat + "," + currentSite.long +"\"><li class=\"list-group-item\"> <span class=\"badge\">" +
+                distance + "mi</span>" + currentSite.name + "</li></a>");
 
             var marker = new google.maps.Marker({
                 position: {lat: Number(sortedSitesList[i].lat), lng: Number(sortedSitesList[i].long)},
