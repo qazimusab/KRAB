@@ -8,7 +8,7 @@ var zipCodeTextBox = document.getElementById("errorDialogZipCode");
 var manualZip = document.getElementById("manualZipContainer");
 var container = document.getElementById("container");
 var jumbotron = document.getElementById("jumbotron");
-var listView = document.getElementById("listViewContainer");
+var sitesList = document.getElementById("sitesList");
 var manualZipInput = document.getElementById("manualZipInput");
 var spinner;
 var opts = {
@@ -41,24 +41,18 @@ var latitude;
 var longitude;
 var zipCode;
 
-var map;
-var geoCoder;
+var siteMap;
+var geoCoder = new google.maps.Geocoder();
 
-function init() {
-    manualZip.style.display = 'none';
-    listView.style.display = 'none';
-    mapCanvas.style.display = 'none';
-}
 
 function initializeMap() {
-    geoCoder = new google.maps.Geocoder();
 
     var mapOptions = {
         center: {lat: 33.7550, lng: -84.39},
         zoom: 13,
         mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(mapCanvas, mapOptions);
+    };
+    siteMap = new google.maps.Map(mapCanvas, mapOptions);
 }
 
 function getLocation() {
@@ -123,16 +117,22 @@ function onLocationError(error) {
 
 }
 
-function dismissSuccessDialog() {
+function dismissSuccessDialog(){
     locationSuccessDialog.close();
-    jumbotron.style.display = 'none';
-    spinner = new Spinner(opts).spin(container);
-    listView.style.display = 'initial';
-    mapCanvas.style.display = 'block';
+    showSitesPage();
+}
 
+function showSitesPage() {
     google.maps.event.addDomListener(window, 'load', initializeMap());
+    jumbotron.style.display = 'none';
+    manualZip.style.display = 'none';
+    spinner = new Spinner(opts).spin(container);
+    tabsContainer.style.display = 'initial';
+    sitesList.style.display = 'initial';
+    mapCanvas.style.display = 'none';
 
-    map.setCenter(new google.maps.LatLng(latitude, longitude))
+
+    siteMap.setCenter(new google.maps.LatLng(latitude, longitude));
     $.getJSON("js/sites.json", function(json) {
         var unsortedSitesList = [];
         var sheet1 = json["Sheet1"]
@@ -157,13 +157,13 @@ function dismissSuccessDialog() {
             var currentSite = sortedSitesList[i];
             var distance = currentSite.distanceFromCurrentLocation + "";
             distance = distance.substring(0, distance.indexOf(".") + 2);
-            $("#listViewContainer ul").append("<a href=\"https://www.google.com/maps/preview/?q="
+            $("#tabsContainer ul").append("<a href=\"https://www.google.com/maps/preview/?q="
                 + currentSite.lat + "," + currentSite.long +"\"><li class=\"list-group-item\"> <span class=\"badge\">" +
                 distance + "mi</span>" + currentSite.name + "</li></a>");
 
             var marker = new google.maps.Marker({
                 position: {lat: Number(sortedSitesList[i].lat), lng: Number(sortedSitesList[i].long)},
-                map: map,
+                map: siteMap,
                 title: sortedSitesList[i].name
             });
         }
@@ -172,23 +172,24 @@ function dismissSuccessDialog() {
 
 }
 
+function handleMapToggleClick(){
+    sitesList.style.display = 'none';
+    mapCanvas.style.display = 'block';
+}
+
+function handleListToggleClick(){
+    sitesList.style.display = 'initial';
+    mapCanvas.style.display = 'none';
+}
+
 function dismissErrorDialog() {
     addManualLocationInput();
     locationErrorDialog.close();
-    manualZip.style.display = 'block';
-    manualZipInput.innerHTML = zipCode;
-
-    this.setTimeout(new function() {
-        jumbotron.style.display = 'none';
-        listView.style.display = 'initial';
-    }, 5000);
+    showSitesPage();
 }
 
 function addManualLocationInput() {
     zipCode = zipCodeTextBox.value;
-
-    mapCanvas.style.display = 'block';
-    google.maps.event.addDomListener(window, 'load', initializeMap());
     convertZipToLatLon();
 }
 
@@ -197,13 +198,6 @@ function convertZipToLatLon() {
         if (status == google.maps.GeocoderStatus.OK) {
             latitude = results[0].geometry.location.lat();
             longitude = results[0].geometry.location.lng();
-
-            var marker = new google.maps.Marker({
-                position: {lat: latitude, lng: longitude},
-                map: map,
-                title: 'My position'
-            });
-            map.setCenter(new google.maps.LatLng(latitude, longitude))
         } else {
             alert("Something went wrong: " + status)
         }
@@ -211,7 +205,7 @@ function convertZipToLatLon() {
 }
 
 function addMapPins(results) {
-    //map.data.addGeoJson(results);
+    //siteMap.data.addGeoJson(results);
 }
 
 function Site() {
@@ -290,5 +284,3 @@ function mergeSort(items){
 
     return merge(mergeSort(left), mergeSort(right));
 }
-
-init();

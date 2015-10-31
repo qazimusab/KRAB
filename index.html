@@ -48,7 +48,7 @@
         <button class="btn btn-primary" type="button" onclick="dismissErrorDialog()">Submit</button>
     </dialog>
 
-    <div class="row marketing" id="manualZipContainer">
+    <div class="row marketing" id="manualZipContainer" style="display: none">
         <div class="col-lg-6">
             <h4>Manual Zip Entry</h4>
 
@@ -56,12 +56,15 @@
         </div>
     </div>
 
-    <div id="listViewContainer">
+    <div id="tabsContainer" style="display: none">
+        <li class="list-group-item" id="tabToggle"><p align="center"><button onclick="handleMapToggleClick()">Map</button><button onclick="handleListToggleClick()">List</button></p></li>
+
         <ul id="sitesList" class="list-group">
         </ul>
+
+        <div id="map"></div>
     </div>
 
-    <div id="map"></div>
 
     <footer class="panel-footer navbar-fixed-bottom">
         <p>© Aloha Online Ordering 2015</p>
