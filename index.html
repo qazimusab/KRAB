@@ -15,65 +15,7 @@
 
 <div class="container" id="container">
 
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">About</a></li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">Car Ordering</h3>
-    </div>
-
-    <div class="jumbotron" id="jumbotron">
-        <h1>Welcome to Car Ordering</h1>
-
-        <p class="lead">The simplest way to order food from your favorite restaurant from the comfort of your car</p>
-
-        <p><a class="btn btn-lg btn-success" href="#" role="button" onclick="getLocation()">Order now!</a></p>
-    </div>
-
-    <dialog id="successDialogWindow">
-        <h3>Your location was found!</h3>
-
-        <p id="successDialogContent"></p>
-        <button class="btn btn-primary" type="button" onclick="dismissSuccessDialog()">Confirm</button>
-    </dialog>
-
-    <dialog id="errorDialogWindow">
-        <h3 id="errorDialogContent">Your location could not be retrieved</h3>
-
-        <p class="lead">Please enter it manually</p>
-        <input placeholder="Zip Code" id="errorDialogZipCode">
-        <button class="btn btn-primary" type="button" onclick="dismissErrorDialog()">Submit</button>
-    </dialog>
-
-    <div class="row marketing" id="manualZipContainer" style="display: none">
-        <div class="col-lg-6">
-            <h4>Manual Zip Entry</h4>
-
-            <p id="manualZipInput"></p>
-        </div>
-    </div>
-
-    <div id="tabsContainer" style="display: none">
-        <li class="list-group-item" id="tabToggle">
-            <p align="center">
-                <button class="btn btn-primary" onclick="handleMapToggleClick()">Map</button>
-                <button class="btn btn-success" onclick="handleListToggleClick()">List</button>
-            </p>
-        </li>
-
-        <ul id="sitesList" class="list-group">
-        </ul>
-
-        <div id="map"></div>
-    </div>
-
-
-    <footer class="panel-footer navbar-fixed-bottom">
-        <p>© Aloha Online Ordering 2015</p>
-    </footer>
+    <img id="menu_image" height="100%" width="100%">
 
 </div>
 
