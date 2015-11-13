@@ -57,7 +57,12 @@
     </div>
 
     <div id="tabsContainer" style="display: none">
-        <li class="list-group-item" id="tabToggle"><p align="center"><button onclick="handleMapToggleClick()">Map</button><button onclick="handleListToggleClick()">List</button></p></li>
+        <li class="list-group-item" id="tabToggle">
+            <p align="center">
+                <button class="btn btn-primary" onclick="handleMapToggleClick()">Map</button>
+                <button class="btn btn-success" onclick="handleListToggleClick()">List</button>
+            </p>
+        </li>
 
         <ul id="sitesList" class="list-group">
         </ul>
