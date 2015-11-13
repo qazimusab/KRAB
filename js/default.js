@@ -135,7 +135,7 @@ function showSitesPage() {
     siteMap.setCenter(new google.maps.LatLng(latitude, longitude));
     $.getJSON("js/sites.json", function(json) {
         var unsortedSitesList = [];
-        var sheet1 = json["Sheet1"]
+        var sheet1 = json["Sheet1"];
         for(var i = 0; i < sheet1.length; i++){
             var site = new Site();
             site.setSiteId(sheet1[i]["SiteId"]);
@@ -175,6 +175,8 @@ function showSitesPage() {
 function handleMapToggleClick(){
     sitesList.style.display = 'none';
     mapCanvas.style.display = 'block';
+    google.maps.event.trigger(map, 'resize');
+    siteMap.setCenter(new google.maps.LatLng(latitude, longitude));
 }
 
 function handleListToggleClick(){
