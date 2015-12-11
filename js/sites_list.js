@@ -1,5 +1,5 @@
 /**
- * Created by Fabrice on 10/16/15.
+ * Created by Qazi Ahmed on 10/16/15.
  */
 var container = document.getElementById("container");
 var spinner;
@@ -68,22 +68,11 @@ function onLocationError(error) {
 }
 
 function loadMenu() {
-    var site = new Site();
-    $.getJSON("js/sites.json",function(json) {
-        site.setName(json[0]["Name"]);
-        site.setMenuUrl(json[0]["MenuImage"]);
-        $('#carousel_container').append("");
-        spinner.stop()
-    });
-}
-
-function Site() {
-
-    this.setName = function(name){
-        this.name = name
-    };
-    this.setMenuUrl = function(menuUrl){
-        this.menuUrl = menuUrl
-    };
-
+    $('#menu_image1').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    $('#menu_image2').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    $('#menu_image3').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    $('#menu_image4').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    $('#menu_image5').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    $('#menu_image6').attr("src", "http://farm6.staticflickr.com/5032/14216615379_9725c7654a_b.jpg");
+    spinner.stop()
 }

@@ -6283,6 +6283,7 @@ button.close {
 }
 .carousel {
   position: relative;
+  height: 90%;
 }
 .carousel-inner {
   position: relative;
