@@ -77,19 +77,18 @@ function loadMenu() {
             var site = new Site();
             site.setName(json[i]["SiteName"]);
             site.setMenuUrl(json[i]["MenuImage"]);
+            site.setSiteAddress((json[i]["AddressLine1"]));
             sites.push(site);
         }
         spinner.stop()
     }).done(function() {
         for(var i=0; i<sites.length; i++) {
-            $('<div class="item"><img class="center-block" src=" '+ sites[i].menuUrl +'" alt="Flower" width="80%" height="100%"></div>').appendTo('.carousel-inner');
+            $('<div class="item"><img class="center-block" src=" '+ sites[i].menuUrl +'" alt="Flower" width="80%" height="100%"><div class="carousel-caption"> <h3 style="color:red">'+sites[i].name+'</h3> <p style="color:red">'+sites[i].siteAddress+'</p></div></div>').appendTo('.carousel-inner');
             $('<li data-target="#myCarousel" style="background:red" data-slide-to="'+i+'"></li>').appendTo('.carousel-indicators');
-
-            $('.item').first().addClass('active');
-            $('.carousel-indicators > li').first().addClass('active');
-            $('#myCarousel').carousel();
-            console.log(sites[i].menuUrl);
         }
+        $('.item').first().addClass('active');
+        $('.carousel-indicators > li').first().addClass('active');
+        $('#myCarousel').carousel();
     }).fail(function() {
         console.log("LoadMenu failed")
     });
@@ -103,5 +102,8 @@ function Site() {
     this.setMenuUrl = function(menuUrl){
         this.menuUrl = menuUrl
     };
+    this.setSiteAddress = function(siteAddress) {
+        this.siteAddress = siteAddress
+    }
 
 }
