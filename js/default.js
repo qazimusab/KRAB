@@ -3,6 +3,7 @@
  */
 var container = document.getElementById("container");
 var spinner;
+var sites;
 var opts = {
     lines: 13 // The number of lines to draw
     , length: 30 // The length of each line
@@ -68,16 +69,29 @@ function onLocationError(error) {
 }
 
 function loadMenu() {
-    var site = new Site();
-    $.getJSON("js/sites.json",function(json) {
-        site.setName(json[0]["Name"]);
-        site.setMenuUrl(json[0]["MenuImage"]);
-        $('#carousel_indicators').append($('<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'));
-        $('#carousel_container').append($('<div class="item-active"><img class="center-block" src="http://www.rustypelican.co.nz/wp-content/uploads/2011/06/bar-menu2014.jpg" alt="Flower" width="80%" height="100%"></div>'));
-        $("#myCarousel").carousel("pause").removeData();
-        $("#myCarousel").carousel(target_slide_index);
+    sites = new Array();
+    var siteAPI = "http://ncrmarketplaceapi.azurewebsites.net/api/sites";
 
+    $.getJSON("js/sites.json",function(json) {
+        for (var i=0; i<json.length; i++) {
+            var site = new Site();
+            site.setName(json[i]["SiteName"]);
+            site.setMenuUrl(json[i]["MenuImage"]);
+            sites.push(site);
+        }
         spinner.stop()
+    }).done(function() {
+        for(var i=0; i<sites.length; i++) {
+            $('<div class="item"><img class="center-block" src=" '+ sites[i].menuUrl +'" alt="Flower" width="80%" height="100%"></div>').appendTo('.carousel-inner');
+            $('<li data-target="#myCarousel" style="background:red" data-slide-to="'+i+'"></li>').appendTo('.carousel-indicators');
+
+            $('.item').first().addClass('active');
+            $('.carousel-indicators > li').first().addClass('active');
+            $('#myCarousel').carousel();
+            console.log(sites[i].menuUrl);
+        }
+    }).fail(function() {
+        console.log("LoadMenu failed")
     });
 }
 
