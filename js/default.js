@@ -72,7 +72,11 @@ function loadMenu() {
     $.getJSON("js/sites.json",function(json) {
         site.setName(json[0]["Name"]);
         site.setMenuUrl(json[0]["MenuImage"]);
-        $('#carousel_container').append("");
+        $('#carousel_indicators').append($('<li data-target="#myCarousel" data-slide-to="0" class="active"></li>'));
+        $('#carousel_container').append($('<div class="item-active"><img class="center-block" src="http://www.rustypelican.co.nz/wp-content/uploads/2011/06/bar-menu2014.jpg" alt="Flower" width="80%" height="100%"></div>'));
+        $("#myCarousel").carousel("pause").removeData();
+        $("#myCarousel").carousel(target_slide_index);
+
         spinner.stop()
     });
 }
