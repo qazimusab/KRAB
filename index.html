@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Car Ordering</title>
+    <title>KRAB</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -13,26 +13,68 @@
 </head>
 <body>
 
-<div class="container">
-    <br>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol id="carousel_indicators" class="carousel-indicators"></ol>
+<div class="form">
 
-        <!-- Wrapper for slides -->
-        <div id="carousel_container" class="carousel-inner" role="listbox"></div>
+    <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+    </ul>
 
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div>
+    <div class="tab-content">
+        <div id="signup">
+            <h1>Sign Up for Free</h1>
+
+            <form action="/" method="post">
+
+
+                <div class="field-wrap">
+                    <label>
+                        Email Address<span class="req">*</span>
+                    </label>
+                    <input type="email"required autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Password<span class="req">*</span>
+                    </label>
+                    <input type="password"required autocomplete="off"/>
+                </div>
+
+                <button type="submit" class="button button-block"/>Register</button>
+
+            </form>
+
+        </div>
+
+        <div id="login">
+            <h1>Welcome Back!</h1>
+
+            <form action="/" method="post">
+
+                <div class="field-wrap">
+                    <label>
+                        Email Address<span class="req">*</span>
+                    </label>
+                    <input type="email"required autocomplete="off"/>
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Password<span class="req">*</span>
+                    </label>
+                    <input type="password"required autocomplete="off"/>
+                </div>
+
+                <button class="button button-block"/>Log In</button>
+
+            </form>
+
+        </div>
+
+    </div><!-- tab-content -->
+
+</div> <!-- /form -->
 
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
